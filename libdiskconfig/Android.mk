@@ -13,6 +13,11 @@ LOCAL_MODULE := libdiskconfig
 LOCAL_MODULE_TAGS := optional
 LOCAL_SYSTEM_SHARED_LIBRARIES := libcutils liblog libc
 LOCAL_CFLAGS := -Werror
+
+ifneq ($(DEBUG_FORCE_STRICT_ALIASING),true)
+	LOCAL_CFLAGS += -fno-strict-aliasing
+endif
+
 include $(BUILD_SHARED_LIBRARY)
 
 ifeq ($(HOST_OS),linux)

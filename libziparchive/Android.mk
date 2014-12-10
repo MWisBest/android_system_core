@@ -31,6 +31,11 @@ LOCAL_MODULE:= libziparchive
 
 LOCAL_C_INCLUDES += ${includes}
 LOCAL_CFLAGS := -Werror
+
+ifneq ($(DEBUG_FORCE_STRICT_ALIASING),true)
+	LOCAL_CFLAGS += -fno-strict-aliasing
+endif
+
 include $(BUILD_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)

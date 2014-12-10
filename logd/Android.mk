@@ -28,6 +28,10 @@ LOCAL_SHARED_LIBRARIES := \
 
 LOCAL_CFLAGS := -Werror $(shell sed -n 's/^\([0-9]*\)[ \t]*auditd[ \t].*/-DAUDITD_LOG_TAG=\1/p' $(LOCAL_PATH)/event.logtags)
 
+ifneq ($(DEBUG_FORCE_STRICT_ALIASING),true)
+	LOCAL_CFLAGS += -fno-strict-aliasing
+endif
+
 include $(BUILD_EXECUTABLE)
 
 include $(call first-makefiles-under,$(LOCAL_PATH))
