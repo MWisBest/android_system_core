@@ -879,6 +879,8 @@ static void process_firmware_event(struct uevent *uevent)
     if(data_fd < 0)
         goto loading_close_out;
 
+    unsigned int current_tries = 0, max_tries = 499;
+
 try_loading_again:
     fw_fd = open(file1, O_RDONLY);
     if(fw_fd < 0) {
@@ -886,7 +888,8 @@ try_loading_again:
         if (fw_fd < 0) {
             fw_fd = open(file3, O_RDONLY);
             if (fw_fd < 0) {
-                if (booting) {
+                current_tries++;
+                if (booting && current_tries < max_tries) {
                         /* If we're not fully booted, we may be missing
                          * filesystems needed for firmware, wait and retry.
                          */
