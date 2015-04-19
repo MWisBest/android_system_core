@@ -267,7 +267,7 @@ static int set_backlight_on(void)
 
     if (access(BACKLIGHT_PATH, R_OK | W_OK) != 0)
     {
-        LOGI("Backlight control not support\n");
+        LOGW("Backlight control not support\n");
         return 0;
     }
 
@@ -696,12 +696,15 @@ static void handle_input_state(struct charger *charger, int64_t now)
 static void handle_power_supply_state(struct charger *charger, int64_t now)
 {
     static int old_soc = 0;
-    int soc;
+    int soc = 0;
 
     if (!charger->have_battery_state)
         return;
 
-    soc = get_battery_capacity();
+    if (batt_prop && batt_prop->batteryLevel >= 0) {
+        soc = batt_prop->batteryLevel;
+    }
+
     if (old_soc != soc) {
         old_soc = soc;
         set_battery_soc_leds(soc);
