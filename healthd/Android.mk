@@ -33,8 +33,8 @@ HEALTHD_CHARGER_DEFINES := RED_LED_PATH \
     BACKLIGHT_PATH
 
 $(foreach healthd_charger_define,$(HEALTHD_CHARGER_DEFINES), \
-  $(if $($(healthd_charger_define)), \
-    $(eval LOCAL_CFLAGS += -D$(healthd_charger_define)=\"$($(healthd_charger_define))\") \
+  $(if $(BOARD_CHARGER_$(healthd_charger_define)), \
+    $(eval LOCAL_CFLAGS += -D$(healthd_charger_define)=\"$(BOARD_CHARGER_$(healthd_charger_define))\") \
   ) \
 )
 
