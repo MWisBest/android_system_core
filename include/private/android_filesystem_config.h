@@ -194,6 +194,7 @@ struct fs_path_config {
 
 static const struct fs_path_config android_dirs[] = {
     { 00770, AID_SYSTEM, AID_CACHE,  0, "cache" },
+    { 00771, AID_ROOT,   AID_ROOT,   0, "cache/dalvik-cache" },
     { 00771, AID_SYSTEM, AID_SYSTEM, 0, "data/app" },
     { 00771, AID_SYSTEM, AID_SYSTEM, 0, "data/app-private" },
     { 00771, AID_ROOT,   AID_ROOT,   0, "data/dalvik-cache" },
